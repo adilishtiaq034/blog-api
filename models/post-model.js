@@ -18,9 +18,11 @@ const postSchema = new mongoose.Schema({
             trim: true
      },
     createdBy:{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
-        required: true
+        type: String,
+        maxlength: 15,
+        minlength: 3,
+        required: true,
+        trim:true
     }
 },
 {timestamps: true})
