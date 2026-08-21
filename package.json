@@ -1,0 +1,12 @@
+{
+  "name": "blog-api",
+  "version": "1.0.0",
+  "description": "blog app backend",
+  "license": "ISC",
+  "author": "Adil",
+  "type": "commonjs",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
