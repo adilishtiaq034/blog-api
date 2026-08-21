@@ -3,6 +3,7 @@ const app = express()
 app.use(express.json())
 require('dotenv').config()
 const mongoose = require('mongoose')
+const postRouter = require('./routers/post-router')
 
 mongoose.connect(process.env.mongodb_uri)
 .then(()=>{
@@ -11,6 +12,8 @@ mongoose.connect(process.env.mongodb_uri)
 .catch((err)=>{
     console.error('Error connecting to MongoDB:', err)
 })
+
+app.use('/blog', postRouter)
 
 app.listen(process.env.port,()=>{
     console.log('Server has started')

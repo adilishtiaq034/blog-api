@@ -90,3 +90,5 @@ catch(err){
         error: err
     })  
 }}
+
+module.exports = {createPost, getAllPosts, getPostById, updatePost, deletePost}
