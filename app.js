@@ -4,7 +4,7 @@ app.use(express.json())
 require('dotenv').config()
 const mongoose = require('mongoose')
 const postRouter = require('./routers/post-router')
-const authRouter = require('./routers/auth-routes')
+const authRouter = require('./routers/user-routes')
 
 mongoose.connect(process.env.mongodb_uri)
 .then(()=>{

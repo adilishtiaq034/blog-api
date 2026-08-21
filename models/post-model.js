@@ -18,11 +18,9 @@ const postSchema = new mongoose.Schema({
             trim: true
      },
     createdBy:{
-        type: String,
-        maxlength: 15,
-        minlength: 3,
-        required: true,
-        trim:true
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Auth',
+        required: true
     }
 },
 {timestamps: true})

@@ -1,9 +1,9 @@
 const Post = require('../models/post-model')
 
 const createPost = async function(req,res){ 
-   const {title, content, createdBy} = req.body
+   const {title, content} = req.body
     try{
-        const newPost = await Post.create({title, content, createdBy})
+        const newPost = await (await Post.create({title, content, createdBy: req.user.userId})).populate('createdBy', 'name email')
         res.status(201).json({
             message: 'Post created successfully',
             post: newPost
@@ -17,7 +17,7 @@ const createPost = async function(req,res){
 
 const getAllPosts = async function(req,res){
     try{
-        const posts = await Post.find()
+        const posts = await Post.find().populate('createdBy', 'name email')
         res.status(200).json({
             message: 'Posts retrieved successfully',
             posts: posts
@@ -33,7 +33,7 @@ const getAllPosts = async function(req,res){
 const getPostById = async function(req,res){
     const id = req.params.id
     try{
-        const post = await Post.findById(id)
+        const post = await Post.findById(id).populate('createdBy', 'name email')
         if(!post){
             return res.status(404).json({
                 message: 'Post not found'
@@ -52,8 +52,20 @@ const getPostById = async function(req,res){
 }
 const updatePost = async function(req,res){
     const id = req.params.id
-    try{
-           const updatedPost = await Post.findByIdAndUpdate(id, req.body, {new: true})
+    const userId = req.user.userId
+    try{         
+             const post = await Post.findById(id)
+                if(!post){
+                    return res.status(404).json({
+                        message: 'Post not found'
+                    })
+                }
+                if(!post.createdBy.equals(userId)){
+                    return res.status(403).json({
+                        message: 'You are not the owner of this post'
+                    })
+                }
+             const updatedPost = await Post.findByIdAndUpdate(id, req.body, {new: true}).populate('createdBy', 'name email')
               if(!updatedPost){
                 res.status(404).json({
                     message: 'Post not found'})
@@ -73,7 +85,21 @@ const updatePost = async function(req,res){
 
 const deletePost = async function(req,res){
     const id = req.params.id
+    const userId = req.user.userId
     try{
+        const post = await Post.findById(id)
+        if(!post){
+            return res.status(404).json({
+                message: 'Post not found'
+            })
+        }
+        if(!post.createdBy.equals(userId)){
+            return res.status(403).json({
+                message: 'You are not the owner of this post'
+            })
+        }
+
+
     const deletedPost = await Post.findByIdAndDelete(id)
     if(!deletedPost){
         res.status(404).json({
