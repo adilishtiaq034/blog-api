@@ -39,10 +39,21 @@ const createComment = async function(req,res){
         comment:comments})
  }
 
+ const deleteComment = async function(req,res){
+    const commentId = req.params.commentId
+    if(!commentId){
+        return res.status(400).json({message:'Please provide commentId'})
+    }
+    const comment = await Comment.findById(commentId)
+    if(!comment){
+        return res.status(404).json({message:'Comment not found'})
+    }
+    await Comment.findByIdAndDelete(commentId)
 
+    res.status(200).json({message:'Comment deleted successfully'})
+ }
 
-
- module.exports = {createComment,getAllComments}    
+ module.exports = {createComment,getAllComments,deleteComment}    
 
 
  
