@@ -5,6 +5,7 @@ require('dotenv').config()
 const mongoose = require('mongoose')
 const postRouter = require('./routers/post-router')
 const authRouter = require('./routers/user-routes')
+const commentRouter = require('./routers/comment-router')
 
 mongoose.connect(process.env.mongodb_uri)
 .then(()=>{
@@ -16,6 +17,7 @@ mongoose.connect(process.env.mongodb_uri)
 
 app.use('/blog', postRouter)
 app.use('/auth', authRouter)
+app.use('/comment', commentRouter)
 
 app.listen(process.env.port,()=>{
     console.log('Server has started')
