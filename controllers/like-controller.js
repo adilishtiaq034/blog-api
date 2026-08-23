@@ -20,3 +20,5 @@ const likePost = async function(req,res){
         res.status(201).json({message:'Post liked successfully'})
 
 }
+
+module.exports = {likePost}
