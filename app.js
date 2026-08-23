@@ -6,6 +6,7 @@ const mongoose = require('mongoose')
 const postRouter = require('./routers/post-router')
 const authRouter = require('./routers/user-routes')
 const commentRouter = require('./routers/comment-router')
+const likeRouter = require('./routers/like-router')
 
 mongoose.connect(process.env.mongodb_uri)
 .then(()=>{
@@ -18,7 +19,7 @@ mongoose.connect(process.env.mongodb_uri)
 app.use('/blog', postRouter)
 app.use('/auth', authRouter)
 app.use('/comment', commentRouter)
-
+app.use('/like', likeRouter)
 app.listen(process.env.port,()=>{
     console.log('Server has started')
 })
