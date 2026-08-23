@@ -21,4 +21,16 @@ const likePost = async function(req,res){
 
 }
 
-module.exports = {likePost}
+const unlikePost = async function(req,res){
+    const postId = req.params.postId
+    const userId = req.user.userId
+    if(!postId){
+        return res.status(400).json({message:'Please provide postId'})}
+        const existingLike = await Like.findOne({post:postId,likedBy:userId})
+        if(!existingLike){
+            return res.status(400).json({message:'You have not liked this post'})}
+        await Like.deleteOne({post:postId,likedBy:userId})
+        res.status(200).json({message:'Post unliked successfully'})
+}
+
+module.exports = {likePost, unlikePost}
