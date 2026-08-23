@@ -19,12 +19,9 @@ const createComment = async function(req,res){
  else{
     return res.status(400).json({message:'Please provide all required fields'})
  }
- } 
+ }
 
-
-
-
- const getAllComments = async function(req,res){
+const getAllComments = async function(req,res){
             
     const postId = req.params.postId
 
@@ -41,12 +38,16 @@ const createComment = async function(req,res){
 
  const deleteComment = async function(req,res){
     const commentId = req.params.commentId
+    const userId = req.user.userId
     if(!commentId){
         return res.status(400).json({message:'Please provide commentId'})
     }
     const comment = await Comment.findById(commentId)
     if(!comment){
         return res.status(404).json({message:'Comment not found'})
+    }
+     if(!comment.createdBy.equals(userId)){
+        return res.status(403).json({message:'You are not the owner of this comment'})
     }
     await Comment.findByIdAndDelete(commentId)
 
