@@ -20,6 +20,11 @@ const getAllPosts = async function(req,res){
             
         const page = Number(req.query.page) || 1
         const limit = Number(req.query.limit) || 10
+        if(page < 1 || limit < 1 || limit > 100){
+            return res.status(400).json({
+                message: 'Page and limit must be positive integers'
+            })
+        }
         const skip = (page - 1) * limit
 
         const category = req.query.category
@@ -42,11 +47,34 @@ const getAllPosts = async function(req,res){
             }
         ]}
 
+        const currentPage = page
+        const totalPosts = await Post.countDocuments(filter)
+        const totalPages = Math.ceil(totalPosts / limit)
+        let prevPage = null
+        let nextPage = null
+        if(currentPage < totalPages){
+            nextPage = currentPage + 1
+        }
+        if(currentPage >= totalPages){
+            nextPage = false
+        }
+        if(currentPage > 1){
+            prevPage = currentPage - 1
+        }
+        if(currentPage <= 1){   
+            prevPage = false
+        }
+
 
      const posts = await Post.find(filter).populate('createdBy', 'name email').skip(skip).limit(limit)
         res.status(200).json({
             message: 'Posts retrieved successfully',
-            posts: posts
+            posts: posts,
+            currentPage: currentPage,
+            totalPages: totalPages,
+            totalPosts: totalPosts,
+            prevPage: prevPage,
+            nextPage: nextPage
         })
     } catch(err){
         res.status(400).json({
