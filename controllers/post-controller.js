@@ -22,6 +22,13 @@ const getAllPosts = async function(req,res){
         const limit = Number(req.query.limit) || 10
         const skip = (page - 1) * limit
 
+        const category = req.query.category
+
+      const filter={}
+
+      if(category){
+        filter.category = category
+      }
 
 
 
@@ -33,7 +40,8 @@ const getAllPosts = async function(req,res){
 
 
 
-        const posts = await Post.find().populate('createdBy', 'name email').skip(skip).limit(limit)
+
+        const posts = await Post.find(filter).populate('createdBy', 'name email').skip(skip).limit(limit)
         res.status(200).json({
             message: 'Posts retrieved successfully',
             posts: posts
