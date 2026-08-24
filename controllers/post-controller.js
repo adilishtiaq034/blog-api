@@ -1,9 +1,9 @@
 const Post = require('../models/post-model')
 
 const createPost = async function(req,res){ 
-   const {title, content} = req.body
+   const {title, content, category} = req.body
     try{
-        const newPost = await (await Post.create({title, content, createdBy: req.user.userId})).populate('createdBy', 'name email')
+        const newPost = await (await Post.create({title, content, category, createdBy: req.user.userId})).populate('createdBy', 'name email')
         res.status(201).json({
             message: 'Post created successfully',
             post: newPost
