@@ -19,7 +19,7 @@ const getAllPosts = async function(req,res){
     try{
             
         const page = Number(req.query.page) || 1
-        const limit = Number(req.query.limit) || 10
+        const limit = Number(req.query.limit) || 3
         if(page < 1 || limit < 1 || limit > 100){
             return res.status(400).json({
                 message: 'Page and limit must be positive integers'
