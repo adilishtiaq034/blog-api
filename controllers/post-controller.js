@@ -23,30 +23,32 @@ const getAllPosts = async function(req,res){
         const skip = (page - 1) * limit
 
         const category = req.query.category
-
-      const filter={}
-
-      if(category){
+        const search = req.query.search
+         const filter={}
+         if(category){
         filter.category = category
       }
+      if(search){
+      
+        filter.$or =[
+            {
+                title : {$regex: search, $options: 'i'}
+            },
+            { 
+                content : {$regex: search, $options: 'i'}
+            },
+            { 
+                category : {$regex: search, $options: 'i'}
+            }
+        ]}
 
 
-
-
-
-
-
-
-
-
-
-
-        const posts = await Post.find(filter).populate('createdBy', 'name email').skip(skip).limit(limit)
+     const posts = await Post.find(filter).populate('createdBy', 'name email').skip(skip).limit(limit)
         res.status(200).json({
             message: 'Posts retrieved successfully',
             posts: posts
         })
-    }catch(err){
+    } catch(err){
         res.status(400).json({
             message: 'Error retrieving posts',
             error: err
