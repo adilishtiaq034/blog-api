@@ -17,6 +17,11 @@ const postSchema = new mongoose.Schema({
             minlength: 10,
             trim: true
      },
+     category:{
+            type: String,
+            required: true,
+            enum: ['Technology', 'Science', 'Health', 'Business', 'Entertainment', 'Sports', 'Politics', 'Education', 'Travel', 'Food']
+     },
     createdBy:{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Auth',
