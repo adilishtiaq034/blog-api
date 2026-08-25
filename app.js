@@ -20,6 +20,5 @@ app.use('/blog', postRouter)
 app.use('/auth', authRouter)
 app.use('/comment', commentRouter)
 app.use('/like', likeRouter)
-app.listen(process.env.port,()=>{
-    console.log('Server has started')
-})
+
+module.exports = app
