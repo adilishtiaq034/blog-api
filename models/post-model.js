@@ -22,10 +22,7 @@ const postSchema = new mongoose.Schema({
             required: true,
             enum: ['Technology', 'Science', 'Health', 'Business', 'Entertainment', 'Sports', 'Politics', 'Education', 'Travel', 'Food']
      },
-     image:{
-              type: String,
-              required: true
-       },
+
     createdBy:{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Auth',

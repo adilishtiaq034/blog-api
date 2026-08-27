@@ -15,6 +15,7 @@ mongoose.connect(process.env.mongodb_uri)
 .catch((err)=>{
     console.error('Error connecting to MongoDB:', err)
 })
+app.use('/uploads', express.static('uploads'))
 
 app.use('/blog', postRouter)
 app.use('/auth', authRouter)
