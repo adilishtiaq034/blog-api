@@ -5,14 +5,15 @@ const jwt = require('jsonwebtoken')
 const register = async function(req,res){
     
     const {name,email,password} = req.body
+    const profileImage = req.file? req.file.path : null
     try{
     const user = await Auth.findOne({email})
     if(user){
-        return res.status(400).json({message:"User already exists"})}
+        return res.status(400).json({message:"User already exists"})} 
 
     const hashedPassword = await bcrypt.hash(password,10)
 
-    const newUser = await Auth.create({name,email,password:hashedPassword})
+    const newUser = await Auth.create({name,email,password:hashedPassword, profileImage: profileImage})
     res.status(201).json({message:"User created successfully", user:newUser})
     }
     catch(err){
