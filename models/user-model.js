@@ -19,7 +19,12 @@ const authSchema = new mongoose.Schema({
             required:true,
             trim:true,
             minlength:6,
-            maxlength:70}
+            maxlength:70},
+        profileImage:{
+            type:String,
+            trim:true,
+            required:true
+        },
 },
 {timestamps:true})
 
