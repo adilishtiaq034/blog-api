@@ -5,14 +5,8 @@ services:
     - "3000:3000"
    env_file:
     - .env
-   depends_on:
-    - mongodb
-  mongodb:
-   image: mongo:latest
-   volumes:
-    - mongodb_data:/data/db 
-volumes:
-  mongodb_data:
+  
+ 
 
 
 
