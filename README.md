@@ -5,6 +5,18 @@ A RESTful Blog API built with **Node.js, Express.js, MongoDB, and Mongoose**.
 This project includes user authentication, authorization, blog post management, comments, pagination, filtering, automated API testing, and Dockerized development with MongoDB.
 
 ---
+## 🚀 Live API
+
+The Blog API is deployed and available online through Railway.
+
+**Live URL:**  
+https://blog-api-production-5c23.up.railway.app
+
+### Example Endpoint
+
+**Get all posts:**
+
+https://blog-api-production-5c23.up.railway.app/blog/posts
 
 ## 🚀 Features
 
