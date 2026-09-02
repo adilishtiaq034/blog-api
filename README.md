@@ -2,7 +2,7 @@
 
 A RESTful Blog API built with **Node.js, Express.js, MongoDB, and Mongoose**.
 
-This project includes user authentication, authorization, blog post management, comments, pagination, filtering, automated API testing, and Dockerized development with MongoDB.
+This project includes user authentication, authorization, blog posts management, comments, pagination, filtering, automated API testing, and Dockerized development with MongoDB.
 
 ---
 ## 🚀 Live API
